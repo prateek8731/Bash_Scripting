@@ -1,0 +1,302 @@
+#!/bin/bash
+#Pratik Dhakal
+
+#Two parameter asking function
+if [ $# = 2 ]  #checking number of parameters
+
+then
+
+if [[ $2 != [0-9]* ]]
+
+then
+
+echo
+
+echo "Please enter the Id number as 2nd parameter"
+
+exit
+
+else
+
+echo
+
+fi
+
+else
+
+echo -e "Please Enter the two Parameters, first as First Name and second as ID."
+
+exit
+
+fi
+
+#SecretKey function
+SecretKey() {
+
+echo -e "Trespassers not allowed, Please Enter the Secret key to execute the program further:\c"
+
+read -s SecretKey
+
+
+if [ "$SecretKey" != "pratik" ]
+
+then
+echo ""
+echo "Incorrect secret key!!!."
+
+count=$(( $count + 1 ))
+
+if [ $count -gt 3 ]
+
+then
+echo""
+echo -e "===================********Multiple Unsuccesful Attempt!, Exiting*********=========="
+
+exit
+
+else
+
+SecretKey
+
+fi
+
+else
+
+echo
+
+fi
+
+}
+
+SecretKey
+echo -e "+-----------------------------------------------------------+"
+echo "| Hello!, Welcome to the program 			    |"
+
+echo -e "| FirstName:$1 \t\t\t\t\t    |"
+
+echo -e "| London ID:$2 \t\t\t\t\t\t    |"
+echo -e "| Date of Program execution: $(date) |" #Displays the current time.
+echo -e "+-----------------------------------------------------------+"
+echo ""
+countries() {
+
+echo "|============Please Make a Guess about the best Football Team among the List========|"
+echo ""
+echo "+--------------------------+"
+echo -e "|Country Name\t\tcode|"
+echo "+--------------------------+"
+echo -e "|Brazil \t\tBRZ|"
+
+echo -e "|Argentina \t\tARG|"
+
+echo -e "|Nepal \t\t\tNEP|"
+
+echo -e "|China \t\t\tCHI|"
+
+echo -e "|England \t\tENG|"
+echo "+--------------------------+"
+echo -e "Please Enter the Best Country Code:\c"
+
+read Country
+
+if [[ $Country != NEP ]]
+
+then
+
+echo "Incorrect, I guess you are not updated to the latest football news. Please Choose again."
+echo ""
+countries
+
+else
+
+echo "Correct, I guess you are updated to the latest football news!"
+echo -e "In the last decade Nepal has progressed a lot and has managed to become the best football country. \n Great goalkeeper like Kiran Chemjong and his team are in the Nepal best player."
+echo ""
+fi
+
+}
+
+countries
+
+choose() {
+echo "=======List of Five-Star player of Football=========="
+echo "+--------------------------+"
+echo -e "|Player Name\t\tcode|"
+echo -e "+--------------------------+"
+echo -e "|Lional Messi \t\tLM |"
+
+echo -e "|Neymar Junior \t\tNJ |"
+
+echo -e "|Kiran Chemjong \tKC |"
+
+echo -e "|Zheng Zhi \t\tZZ |"
+
+echo -e "|Harry Kane \t\tHK |"
+echo "+--------------------------+"
+echo ""
+echo -e "Please Enter the three player Code separated them by space: \c"
+
+read player1 player2 player3
+
+best=($player1 $player2 $player3)
+
+        if [[ ${#best[@]} -ne 3 ]]
+
+                then
+
+                echo "You are allowed to select maximum of 3 codes only."
+
+                choose
+
+        else
+
+                if [ $player1 = "LM" ] || [ $player1 = "NJ" ] || [ $player1 = "KC" ] || [ $player1 = "ZZ" ] || [ $player1 = "HK" ] &&
+
+                [ $player2 = "LM" ] || [ $player2 = "NJ" ] || [ $player2 = "KC" ] || [ $player2 = "ZZ" ] || [ $player2 = "HK" ] &&
+
+                [ $player3 = "LM" ] || [ $player3 = "NJ" ] || [ $player3 = "KC" ] || [ $player3 = "ZZ" ] || [ $player3 = "HK" ]
+
+                        then
+
+                        if [ $player1 = $player2 ] && [ $player2 = $player3 ] && [ $player1 = $player3 ]
+
+                                then
+
+                                echo "Duplication of code input found. Please Enter different-different code."
+
+                                choose
+
+                        else
+echo ""
+echo "======================================="
+echo "The list of the selected Player code"
+echo "=======================================" 
+                        fi
+
+                else
+
+                       echo "Invalid or incorrect player code."
+
+                        choose
+
+                fi
+
+        fi
+
+}
+
+choose
+
+selects() {
+
+        PS3="Please select a player from list using corresponding number:"
+
+        play="$player1 $player2 $player3"
+
+        select i in $play
+
+        do
+
+        if [[ -n "$i" ]]
+
+                then
+
+                case $i in
+
+                "LM")
+
+                cat LM
+
+                break
+
+                ;;
+
+                "NJ")
+
+                cat NJ
+
+                break
+
+		;;
+
+                "KC")
+
+                cat KC
+
+                break
+
+                ;;
+
+                "ZZ")
+
+                echo -e "Invalid, corrupted or file not found!!"
+
+                countries
+
+                break
+
+                ;;
+
+                "HK")
+
+                echo -e "Invalid, corrupted or file not found!!"
+
+                countries
+
+                break
+
+                ;;
+
+                esac
+
+        else
+
+                echo "Please, Enter the correct number from the list."
+
+                echo "wrong choice, Try again!! "
+
+        fi
+
+        done
+
+}
+
+selects
+
+restart() {
+echo ""
+echo -e "DO U WANT TO RE-RUN the program?:\c"
+
+read dodey
+
+if [[ $dodey = yes ]]
+
+then
+
+countries
+
+choose
+
+selects
+
+restart
+
+elif [[ $dodey = no ]]
+
+then
+
+echo "Thank you for using the program, Exiting..."
+
+exit
+
+else
+
+echo "Please Enter yes OR no."
+
+restart
+
+fi
+
+}
+
+restart
